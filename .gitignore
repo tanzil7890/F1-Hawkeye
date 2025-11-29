@@ -9,3 +9,5 @@ env
 2025-06-01 17-47-20
 
 extra/.DS_Store
+extra/
+.DS_Store
