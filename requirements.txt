@@ -1,0 +1,187 @@
+# ============================================================================
+# F1_HAWKEYE - F1 Telemetry Analysis Platform
+# Complete Dependencies List
+# ============================================================================
+#
+# Professional-grade telemetry analysis with ML predictions and analytics
+# Python 3.8+ required
+#
+# Installation: pip install -r requirements.txt
+# ============================================================================
+
+# === CORE GUI FRAMEWORK ===
+PySide6>=6.0.0              # Qt6 for Python - Modern cross-platform GUI
+                             # Used in: All UI components, windows, widgets
+
+# === DATABASE & PERSISTENCE ===
+SQLAlchemy>=2.0.0           # SQL toolkit and ORM
+                             # Used in: database/models.py, db_manager.py
+alembic>=1.12.0             # Database migration tool for SQLAlchemy
+                             # Used in: Database schema versioning
+
+# === DATA PROCESSING & MANIPULATION ===
+pandas>=2.0.0               # Data analysis and manipulation
+                             # Used in: analysis/, ml/, export/, statistics/
+numpy>=1.24.0               # Numerical computing library
+                             # Used in: ML models, analytics, visualizations
+
+# === DATA STORAGE FORMATS ===
+pyarrow>=12.0.0             # Apache Arrow Python bindings
+                             # Used in: export/parquet_exporter.py
+                             # Purpose: ML-optimized Parquet file format
+
+# === MACHINE LEARNING - CORE ===
+scikit-learn>=1.3.0         # Machine learning library
+                             # Used in: ml/models/, advanced/anomaly_detection.py
+                             # Models: RandomForest, IsolationForest, StandardScaler
+scipy>=1.10.0               # Scientific computing library
+                             # Used in: statistics/, analysis/
+                             # Purpose: Statistical functions and tests
+xgboost>=2.0.0              # Gradient boosting framework
+                             # Used in: ml/models/ (with fallback to RandomForest)
+                             # Purpose: Enhanced ML model performance
+joblib>=1.3.0               # Python function serialization
+                             # Used in: ml/models/, advanced/multi_session_learning.py
+                             # Purpose: Save/load trained ML models
+
+# === VISUALIZATION ===
+matplotlib>=3.7.0           # 2D plotting library
+                             # Used in: visualization/ (all chart components)
+                             # Purpose: Static plots, Qt integration via FigureCanvasQTAgg
+plotly>=5.14.0              # Interactive graphing library
+                             # Used in: Advanced visualizations
+                             # Purpose: Interactive charts with zoom/pan capabilities
+
+# === UI FRAMEWORK ENHANCEMENTS ===
+ttkbootstrap>=1.10.0        # Modern themed Tkinter widgets
+                             # Used in: windows/port_selection_window.py, UDP_redirect_window.py
+                             # Purpose: Legacy window styling
+
+# === REST API FRAMEWORK (Optional - Required for API Server) ===
+fastapi>=0.104.0            # Modern web framework for APIs
+                             # Used in: api/main.py
+                             # Purpose: Expose telemetry data via REST API
+pydantic>=2.0.0             # Data validation using Python type hints
+                             # Used in: api/main.py (BaseModel, request validation)
+                             # Purpose: API request/response models
+uvicorn[standard]>=0.24.0   # ASGI server implementation
+                             # Required to run: uvicorn src.api.main:app --reload
+                             # Purpose: FastAPI application server
+
+# === CLOUD STORAGE (Optional - Uncomment if needed) ===
+# boto3>=1.28.0             # AWS SDK for Python
+#                            # Used in: cloud/storage.py
+#                            # Purpose: Upload telemetry to AWS S3
+# google-cloud-storage>=2.10.0  # Google Cloud Storage client
+#                            # Used in: cloud/storage.py
+#                            # Purpose: Upload telemetry to Google Cloud Storage
+
+# === INTERACTIVE CHARTS (Optional -  Chart Upgrades) ===
+# PySide6-WebEngine>=6.0.0  # Qt WebEngine for rendering Plotly in Qt
+#                            # Required for: Interactive Plotly charts in Qt widgets
+#                            # Install if implementing UI_IMPROVEMENT_ROADMAP Phase 3
+# kaleido>=0.2.1            # Static image export for Plotly
+#                            # Purpose: Export charts as PNG/SVG
+
+# === DEEP LEARNING (Optional - Advanced ML Features) ===
+# tensorflow>=2.13.0        # Deep learning framework
+#                            # Purpose: LSTM models for time series prediction
+#                            # Note: Large dependency (~500MB)
+# torch>=2.0.0              # PyTorch deep learning framework
+#                            # Purpose: Alternative to TensorFlow
+#                            # Note: Large dependency (~800MB)
+
+# === TIME SERIES FORECASTING (Optional - Advanced Analytics) ===
+# prophet>=1.1.0            # Facebook's time series forecasting tool
+#                            # Purpose: Lap time and wear forecasting
+#                            # Note: Requires additional system dependencies
+
+# === DEVELOPMENT TOOLS (Optional - For Contributors) ===
+# pytest>=7.4.0             # Testing framework
+#                            # Purpose: Unit tests, integration tests
+# pytest-cov>=4.1.0         # Coverage plugin for pytest
+#                            # Purpose: Code coverage reports
+# black>=23.0.0             # Python code formatter
+#                            # Purpose: Consistent code style
+# flake8>=6.0.0             # Linting tool
+#                            # Purpose: Code quality checks
+# mypy>=1.5.0               # Static type checker
+#                            # Purpose: Type hint verification
+
+# ============================================================================
+# INSTALLATION INSTRUCTIONS
+# ============================================================================
+#
+# BASIC INSTALLATION (Core Features):
+#   pip install -r requirements.txt
+#
+# FULL INSTALLATION (All Features):
+#   Uncomment optional dependencies above, then:
+#   pip install -r requirements.txt
+#
+# API SERVER ONLY:
+#   pip install fastapi pydantic uvicorn[standard]
+#
+# CLOUD STORAGE ONLY:
+#   pip install boto3 google-cloud-storage
+#
+# DEVELOPMENT ENVIRONMENT:
+#   Uncomment development tools, then:
+#   pip install -r requirements.txt
+#
+# ============================================================================
+# SYSTEM REQUIREMENTS
+# ============================================================================
+#
+# - Python 3.8 or higher (3.10+ recommended)
+# - 4GB RAM minimum (8GB+ recommended for ML training)
+# - 2GB disk space (models and database)
+# - UDP port 20777 available (for F1 game telemetry)
+#
+# ============================================================================
+# TROUBLESHOOTING
+# ============================================================================
+#
+# If installation fails:
+#
+# 1. Upgrade pip:
+#    pip install --upgrade pip setuptools wheel
+#
+# 2. Install build tools (if needed):
+#    - Windows: Install Visual C++ Build Tools
+#    - macOS: xcode-select --install
+#    - Linux: sudo apt-get install python3-dev build-essential
+#
+# 3. Install packages individually if conflicts occur:
+#    pip install PySide6 pandas numpy scikit-learn matplotlib
+#
+# 4. Use virtual environment (recommended):
+#    python -m venv venv
+#    source venv/bin/activate  # On Windows: venv\Scripts\activate
+#    pip install -r requirements.txt
+#
+# ============================================================================
+# PACKAGE COMPATIBILITY NOTES
+# ============================================================================
+#
+# - xgboost: Optional with automatic fallback to scikit-learn RandomForest
+# - FastAPI: Only required if running REST API server
+# - Cloud packages: Only required if using cloud storage features
+# - All packages are compatible with each other (no conflicts)
+# - Tested on Python 3.8, 3.9, 3.10, 3.11
+#
+# ============================================================================
+# MINIMAL INSTALLATION (Memory-Only Mode)
+# ============================================================================
+#
+# For running without database or ML features:
+#   pip install PySide6 ttkbootstrap
+#
+# This provides:
+# - Real-time telemetry display
+# - All original 9 tabs
+# - No database persistence
+# - No ML predictions
+# - No analytics features
+#
+# ============================================================================
